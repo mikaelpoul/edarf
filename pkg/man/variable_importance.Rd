@@ -4,18 +4,18 @@
 \alias{variable_importance}
 \title{Variable importance using random forests}
 \usage{
-variable_importance(fit, vars, interaction, nperm, data)
+variable_importance(fit, vars, interaction, nperm, data, ...)
 }
 \arguments{
-\item{fit}{object of class 'RandomForest', 'randomForest', or 'rfsrc'}
+\item{fit}{object of class 'RandomForest', 'randomForest', 'rfsrc', or `ranger`}
 
 \item{vars}{character, variables to find the importance of}
 
-\item{interaction}{logcal, compute the joint and additive importance for observations (\code{type = "local"}) or variables \code{type = "aggregate"}}
+\item{interaction}{logcal, compute the importance for all the \code{vars} jointly of for them separately.}
 
 \item{nperm}{positive integer giving the number of times to permute the indicated variables (default 10)}
 
-\item{data}{optional (unless using randomForest) data.frame with which to calculate importance}
+\item{data}{optional (unless using 'randomForest' or 'ranger'') data.frame which contains the covariates and the outcome only.}
 
 \item{...}{additional arguments to be passed to \code{permutationImportance}.}
 }
@@ -23,12 +23,12 @@ variable_importance(fit, vars, interaction, nperm, data)
 a named list of \code{vars} with the return from \code{permutationImportance} for each.
 }
 \description{
-Computes local or aggregate variable importance for a set of predictors from a fitted random forest object from the party, randomForest, or randomForestSRC package
+Computes local or aggregate variable importance for a set of predictors from a fitted random forest object from the party, randomForest, randomForestSRC, or ranger package
 }
 \examples{
 library(randomForest)
 data(iris)
-fit <- randomForest(Species ~ ., iris)
+fit = randomForest(Species ~ ., iris)
 variable_importance(fit, nperm = 2, data = iris)
 }
 \references{
@@ -37,4 +37,3 @@ Breiman, Leo. "Random forests." Machine learning 45.1 (2001): 5-32.
 \seealso{
 \code{\link{plot_imp}} for plotting the results of \code{variable_importance}.
 }
-

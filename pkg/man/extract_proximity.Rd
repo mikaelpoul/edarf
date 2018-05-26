@@ -7,7 +7,7 @@
 extract_proximity(fit, newdata)
 }
 \arguments{
-\item{fit}{object of class 'RandomForest', 'randomForest', or 'rfsrc'}
+\item{fit}{object of class 'RandomForest', 'randomForest', 'rfsrc', or `ranger`}
 
 \item{newdata}{new data with the same columns as the data used for \code{fit}}
 
@@ -17,18 +17,17 @@ extract_proximity(fit, newdata)
 an n x n matrix where position i, j gives the proportion of times observation i and j are in the same teriminal node across all trees
 }
 \description{
-Extracts proximity matrices from random forest objects from the party, randomForest or randomForestSRC packages
+Extracts proximity matrices from random forest objects from the party, randomForest, randomForestSRC, or ranger packages
 }
 \examples{
 library(randomForest)
 
-fit <- randomForest(hp ~ ., mtcars, proximity = TRUE)
+fit = randomForest(hp ~ ., mtcars, proximity = TRUE)
 extract_proximity(fit)
 
-fit <- randomForest(Species ~ ., iris, proximity = TRUE)
+fit = randomForest(Species ~ ., iris, proximity = TRUE)
 extract_proximity(fit)
 }
 \seealso{
 \code{\link{plot_prox}} for plotting principal components of proximity matrices.
 }
-

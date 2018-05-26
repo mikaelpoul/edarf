@@ -7,7 +7,7 @@
 partial_dependence(fit, vars, n, interaction, uniform, data, ...)
 }
 \arguments{
-\item{fit}{object of class 'RandomForest', 'randomForest', or 'rfsrc'}
+\item{fit}{object of class 'RandomForest', 'randomForest', 'rfsrc', or `ranger`}
 
 \item{vars}{a character vector of the predictors of interest}
 
@@ -18,7 +18,7 @@ partial_dependence(fit, vars, n, interaction, uniform, data, ...)
 \item{uniform}{logical, indicates whether a uniform or random grid is to be construct
 partial dependence calculation}
 
-\item{data}{the data.frame used to fit the model, only needed for 'randomForest'}
+\item{data}{the data.frame used to fit the model. must only include the covariates in the model. only needed for 'randomForest' and 'ranger.'}
 
 \item{...}{additional arguments to be passed to \code{marginalPrediction}}
 }
@@ -29,7 +29,7 @@ if 'vars' has length > 1 and interaction is true or false then the output will b
 }
 \description{
 Calculates the partial dependence of the response on an arbitrary dimensional set of predictors
-from a fitted random forest object from the party, randomForest, or randomForestSRC packages
+from a fitted random forest object from the party, randomForest, randomForestSRC, or ranger packages
 }
 \examples{
 library(randomForest)
@@ -39,16 +39,16 @@ data(iris)
 data(swiss)
 
 ## classification
-fit <- randomForest(Species ~ ., iris)
-pd <- partial_dependence(fit, c("Sepal.Width", "Sepal.Length"),
+fit = randomForest(Species ~ ., iris)
+pd = partial_dependence(fit, c("Sepal.Width", "Sepal.Length"),
   data = iris[, -ncol(iris)])
-pd_int <- partial_dependence(fit, c("Petal.Width", "Sepal.Length"), 
+pd_int = partial_dependence(fit, c("Petal.Width", "Sepal.Length"), 
   interaction = TRUE, data = iris[, -ncol(iris)])
 
 ## Regression
-fit <- randomForest(Fertility ~ ., swiss)
-pd <- partial_dependence(fit, c("Education", "Examination"), data = swiss[, -1])
-pd_int <- partial_dependence(fit, c("Education", "Examination"),
+fit = randomForest(Fertility ~ ., swiss)
+pd = partial_dependence(fit, c("Education", "Examination"), data = swiss[, -1])
+pd_int = partial_dependence(fit, c("Education", "Examination"),
   interaction = TRUE, data = swiss[, -1])
 }
 \references{
@@ -57,4 +57,3 @@ Friedman, Jerome H. "Greedy function approximation: a gradient boosting machine.
 \seealso{
 \code{\link{plot_pd}} for plotting \code{partial_dependence}.
 }
-

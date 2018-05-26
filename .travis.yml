@@ -1,9 +1,9 @@
 language: r
-sudo: required
+r:
+  - oldrel
+  - release
+  - devel
 cache: packages
-
-before_install:
-  - cd pkg
 
 r_packages:
   - testthat
@@ -12,9 +12,10 @@ r_packages:
   - party
   - randomForest
   - randomForestSRC
+  - mmpf
 
-r_github_packages:
-  - zmjones/mmpf
+before_install:
+ - cd pkg
 
 notifications:
   email:
